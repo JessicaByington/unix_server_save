@@ -1,0 +1,95 @@
+//**************************************************
+//cSymbolTable.h
+//
+//A symbol table definition file for CST 320 project
+//
+//Author: Jessica Maxey
+//
+//Date: 1/19/2016
+//
+#include "tokens.h"
+#include <iostream>
+using std::cout;
+using std::cin;
+using std::endl;
+
+#include <unordered_map>
+using std::unordered_map;
+
+#include <string>
+using std::string;
+
+#include <list>
+using std::list;
+
+class cSymbolTable
+{
+    public:
+        void IncreaseScope();
+        void DecreaseScope();
+        cSymbol * InsertIdentifier(string identifier);
+        bool LookUpIdentifier(string identifier);
+
+
+    private:
+        //list<unordred_map> mystack ();
+        unordered_map<string, cSymbol *> symboltable;
+};
+
+void IncreaseScope(char open_curly)
+{
+    //create new symbol table
+
+    //push to stack of symbol tables
+    //mystack.push_front(symboltable);
+}
+
+
+void DecreaseScope(char close_curly)
+{
+    //pop current symbol table off stack of symbol tables
+    //mystack.pop_front();
+
+    //next one down becomes current symbol table
+
+}
+
+cSymbol * InsertIdentifier(string identifier)
+{
+    foundid = LookUpIdentifier(identifier);
+
+    //if lookup does not contain the identifier
+    //then add one to the symbol table
+    if (foundid != nullptr)
+    {
+        symboltable[foundid] = new cSymbol(foundid);
+    }
+    else
+    {
+        symboltable[identifier] = new cSymbol(identifier);
+    }
+
+    return symboltable[identifier];
+}
+
+
+cSymbol * LookUpIdentifier(string identifier)
+{
+    //look at top of stack
+/*    for (int i = 0; i < mystack.count(); i++)
+    {
+        //something iterator            
+    } 
+*/
+    //do count
+    if(symboltable.count(identifier) > 0)
+    {
+        //identifier found, return true
+        return symboltable[identifier];
+    }   
+    else
+    {
+        //identifier not found, return false
+        return nullptr;
+    }
+}

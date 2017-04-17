@@ -1,0 +1,22 @@
+{
+    struct
+    {
+        char   aa;
+        int    bb;
+        char   cc;
+        float  dd;
+        char   ee;
+    } s1;
+
+    struct s1 aa;
+
+    struct
+    {
+        int aa;
+        int bb;
+    } s2;
+
+    struct s2 bb;
+
+    print(1);
+}

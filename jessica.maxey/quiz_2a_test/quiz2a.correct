@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<program>
+  <block>
+    <decls>
+      <var_decl>
+        <sym id="2" name="int"/>
+        <sym id="4" name="x"/>
+      </var_decl>
+    </decls>
+    <stmts>
+      <assign>
+        <varref>
+          <sym id="4" name="x"/>
+        </varref>
+        <expr>
+          <int value="1"/>
+          <op value="^"/>
+          <int value="2"/>
+        </expr>
+      </assign>
+      <assign>
+        <varref>
+          <sym id="4" name="x"/>
+        </varref>
+        <expr>
+          <int value="1"/>
+          <op value="^^"/>
+          <int value="2"/>
+        </expr>
+      </assign>
+    </stmts>
+  </block>
+</program>

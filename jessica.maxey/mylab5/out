@@ -1,0 +1,40 @@
+53,54c53,67
+<       <assign/>
+<       <assign/>
+---
+>       <assign>
+>         <varref>
+>           <sym id="12" name="bb"/>
+>           <sym id="9" name="d"/>
+>           <sym id="4" name="a"/>
+>         </varref>
+>         <int value="3"/>
+>       </assign>
+>       <assign>
+>         <varref>
+>           <sym id="11" name="aa"/>
+>           <sym id="4" name="a"/>
+>         </varref>
+>         <int value="1"/>
+>       </assign>
+65c78,84
+<       <assign/>
+---
+>       <assign>
+>         <varref>
+>           <sym id="12" name="bb"/>
+>           <sym id="7" name="c"/>
+>         </varref>
+>         <int value="1"/>
+>       </assign>
+76c95,102
+<       <assign/>
+---
+>       <assign>
+>         <varref>
+>           <sym id="12" name="bb"/>
+>           <sym id="9" name="d"/>
+>           <sym id="4" name="a"/>
+>         </varref>
+>         <int value="3"/>
+>       </assign>

@@ -1,0 +1,35 @@
+
+[text/html - 1]
+Application=google-chrome.desktop
+AllowAsDefault=true
+GenericServiceType=Application
+Preference=1
+ServiceType=text/html
+
+[x-scheme-handler/http - 1]
+Application=google-chrome.desktop
+AllowAsDefault=true
+GenericServiceType=Application
+Preference=1
+ServiceType=x-scheme-handler/http
+
+[x-scheme-handler/https - 1]
+Application=google-chrome.desktop
+AllowAsDefault=true
+GenericServiceType=Application
+Preference=1
+ServiceType=x-scheme-handler/https
+
+[x-scheme-handler/about - 1]
+Application=google-chrome.desktop
+AllowAsDefault=true
+GenericServiceType=Application
+Preference=1
+ServiceType=x-scheme-handler/about
+
+[x-scheme-handler/unknown - 1]
+Application=google-chrome.desktop
+AllowAsDefault=true
+GenericServiceType=Application
+Preference=1
+ServiceType=x-scheme-handler/unknown

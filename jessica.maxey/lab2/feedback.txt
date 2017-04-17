@@ -1,0 +1,9 @@
+Lab2 Feedback
+
+-2 Your tagged commit did not have a lang.l. I graded your final commit instead.
+
+-5 You did not report an error if the file did not have and 'end'
+
+The END_OF_FILE definition probably should have gone in tokens.h instead of parse.cpp
+
+-1 Your error recovery process in FindSTMT was more convoluted than necessary.

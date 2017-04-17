@@ -1,0 +1,32 @@
+***************************************
+Lab 5 Feedback
+
+-3 Your repository still has a few files that it shouldn't
+
+-2 in cStructDeclNode::LookUp, instead of maninipulating the unordered map in this code, you should have called the cSymbolTable function that did this for you.That way if you changed the implementation of the symbol table, it wouldn't affet the cStructDeclNode code.
+
+-5 There is some combination of declaring a function with params and calling without or declaring without and calling with that causes your code to segfault.
+***************************************
+Lab 4 Feedback
+
+-2 Your repository has intermediate files. It should only have source.
+
+-2 Some of the files I supplied (such as lang.y), you edited but did not update the comment header to indicate this.
+
+Otherwise, well done.
+
+***************************************
+Lab 3 Feedback
+
+-1 Your repository has intermediate files. It should only have source.
+
+I would suggest calling "DefaultLookUpIdentifier" something like "LocalLookUpIdentifier". "Local" (as in local scope) is a better descriptor than "default".
+
+Well done. Your code was simple, consise, and readable.
+
+***************************************
+Lab1 Feedback
+
+-2 Your definition of identifiers does not seem to include underscores.
+
+-2 You did not edit the comment header to add your name and the date.

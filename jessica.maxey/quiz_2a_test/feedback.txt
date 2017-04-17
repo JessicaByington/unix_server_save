@@ -1,0 +1,15 @@
+***************************************
+Lab 3 Feedback
+
+-1 Your repository has intermediate files. It should only have source.
+
+I would suggest calling "DefaultLookUpIdentifier" something like "LocalLookUpIdentifier". "Local" (as in local scope) is a better descriptor than "default".
+
+Well done. Your code was simple, consise, and readable.
+
+***************************************
+Lab1 Feedback
+
+-2 Your definition of identifiers does not seem to include underscores.
+
+-2 You did not edit the comment header to add your name and the date.

@@ -1,0 +1,1 @@
+cmd_/home/jess/Documents/Advanced_Unix/lab4/mychar.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/jess/Documents/Advanced_Unix/lab4/mychar.ko /home/jess/Documents/Advanced_Unix/lab4/mychar.o /home/jess/Documents/Advanced_Unix/lab4/mychar.mod.o

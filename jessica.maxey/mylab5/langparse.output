@@ -1,0 +1,2045 @@
+Terminals unused in grammar
+
+   CHAR_VAL
+   AND
+   OR
+   EQUALS
+   JUNK_TOKEN
+
+
+State 28 conflicts: 7 reduce/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: block
+
+    2 block: open decls stmts close
+    3      | open stmts close
+
+    4 open: '{'
+
+    5 close: '}'
+
+    6 decls: decls decl
+    7      | decl
+
+    8 decl: var_decl ';'
+    9     | struct_decl ';'
+   10     | func_decl
+   11     | error ';'
+
+   12 var_decl: TYPE_ID IDENTIFIER
+   13         | STRUCT IDENTIFIER IDENTIFIER
+
+   14 struct_decl: STRUCT open decls close IDENTIFIER
+
+   15 func_decl: func_header ';'
+   16          | func_header '{' decls stmts '}'
+   17          | func_header '{' stmts '}'
+
+   18 func_header: func_prefix paramsspec ')'
+   19            | func_prefix ')'
+
+   20 func_prefix: TYPE_ID IDENTIFIER '('
+
+   21 paramsspec: paramsspec ',' paramspec
+   22           | paramspec
+
+   23 paramspec: var_decl
+
+   24 stmts: stmts stmt
+   25      | stmt
+
+   26 stmt: IF '(' expr ')' stmts ENDIF ';'
+   27     | IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   28     | WHILE '(' expr ')' stmt
+   29     | PRINT '(' expr ')' ';'
+   30     | lval '=' expr ';'
+   31     | lval '=' func_call ';'
+   32     | func_call ';'
+   33     | block
+   34     | RETURN expr ';'
+   35     | error ';'
+
+   36 func_call: IDENTIFIER '(' params ')'
+   37          | IDENTIFIER '(' ')'
+
+   38 varref: varref '.' varpart
+   39       | varpart
+
+   40 varpart: IDENTIFIER
+
+   41 lval: varref
+
+   42 params: params ',' param
+   43       | param
+
+   44 param: expr
+
+   45 expr: expr '+' term
+   46     | expr '-' term
+   47     | term
+
+   48 term: term '*' fact
+   49     | term '/' fact
+   50     | term '%' fact
+   51     | fact
+
+   52 fact: '(' expr ')'
+   53     | INT_VAL
+   54     | FLOAT_VAL
+   55     | varref
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'%' (37) 50
+'(' (40) 20 26 27 28 29 36 37 52
+')' (41) 18 19 26 27 28 29 36 37 52
+'*' (42) 48
+'+' (43) 45
+',' (44) 21 42
+'-' (45) 46
+'.' (46) 38
+'/' (47) 49
+';' (59) 8 9 11 15 26 27 29 30 31 32 34 35
+'=' (61) 30 31
+'{' (123) 4 16 17
+'}' (125) 5 16 17
+error (256) 11 35
+IDENTIFIER (258) 12 13 14 20 36 37 40
+TYPE_ID (259) 12 20
+CHAR_VAL (260)
+INT_VAL (261) 53
+FLOAT_VAL (262) 54
+PRINT (263) 29
+WHILE (264) 28
+IF (265) 26 27
+ELSE (266) 27
+ENDIF (267) 26 27
+STRUCT (268) 13 14
+RETURN (269) 34
+AND (270)
+OR (271)
+EQUALS (272)
+JUNK_TOKEN (273)
+
+
+Nonterminals, with rules where they appear
+
+$accept (32)
+    on left: 0
+program (33)
+    on left: 1, on right: 0
+block (34)
+    on left: 2 3, on right: 1 33
+open (35)
+    on left: 4, on right: 2 3 14
+close (36)
+    on left: 5, on right: 2 3 14
+decls (37)
+    on left: 6 7, on right: 2 6 14 16
+decl (38)
+    on left: 8 9 10 11, on right: 6 7
+var_decl (39)
+    on left: 12 13, on right: 8 23
+struct_decl (40)
+    on left: 14, on right: 9
+func_decl (41)
+    on left: 15 16 17, on right: 10
+func_header (42)
+    on left: 18 19, on right: 15 16 17
+func_prefix (43)
+    on left: 20, on right: 18 19
+paramsspec (44)
+    on left: 21 22, on right: 18 21
+paramspec (45)
+    on left: 23, on right: 21 22
+stmts (46)
+    on left: 24 25, on right: 2 3 16 17 24 26 27
+stmt (47)
+    on left: 26 27 28 29 30 31 32 33 34 35, on right: 24 25 28
+func_call (48)
+    on left: 36 37, on right: 31 32
+varref (49)
+    on left: 38 39, on right: 38 41 55
+varpart (50)
+    on left: 40, on right: 38 39
+lval (51)
+    on left: 41, on right: 30 31
+params (52)
+    on left: 42 43, on right: 36 42
+param (53)
+    on left: 44, on right: 42 43
+expr (54)
+    on left: 45 46 47, on right: 26 27 28 29 30 34 44 45 46 52
+term (55)
+    on left: 48 49 50 51, on right: 45 46 47 48 49 50
+fact (56)
+    on left: 52 53 54 55, on right: 48 49 50 51
+
+
+State 0
+
+    0 $accept: . program $end
+    1 program: . block
+    2 block: . open decls stmts close
+    3      | . open stmts close
+    4 open: . '{'
+
+    '{'  shift, and go to state 1
+
+    program  go to state 2
+    block    go to state 3
+    open     go to state 4
+
+
+State 1
+
+    4 open: '{' .
+
+    $default  reduce using rule 4 (open)
+
+
+State 2
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 5
+
+
+State 3
+
+    1 program: block .
+
+    $default  reduce using rule 1 (program)
+
+
+State 4
+
+    2 block: . open decls stmts close
+    2      | open . decls stmts close
+    3      | . open stmts close
+    3      | open . stmts close
+    4 open: . '{'
+    6 decls: . decls decl
+    7      | . decl
+    8 decl: . var_decl ';'
+    9     | . struct_decl ';'
+   10     | . func_decl
+   11     | . error ';'
+   12 var_decl: . TYPE_ID IDENTIFIER
+   13         | . STRUCT IDENTIFIER IDENTIFIER
+   14 struct_decl: . STRUCT open decls close IDENTIFIER
+   15 func_decl: . func_header ';'
+   16          | . func_header '{' decls stmts '}'
+   17          | . func_header '{' stmts '}'
+   18 func_header: . func_prefix paramsspec ')'
+   19            | . func_prefix ')'
+   20 func_prefix: . TYPE_ID IDENTIFIER '('
+   24 stmts: . stmts stmt
+   25      | . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 6
+    IDENTIFIER  shift, and go to state 7
+    TYPE_ID     shift, and go to state 8
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    STRUCT      shift, and go to state 12
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+
+    block        go to state 14
+    open         go to state 4
+    decls        go to state 15
+    decl         go to state 16
+    var_decl     go to state 17
+    struct_decl  go to state 18
+    func_decl    go to state 19
+    func_header  go to state 20
+    func_prefix  go to state 21
+    stmts        go to state 22
+    stmt         go to state 23
+    func_call    go to state 24
+    varref       go to state 25
+    varpart      go to state 26
+    lval         go to state 27
+
+
+State 5
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 6
+
+   11 decl: error . ';'
+   35 stmt: error . ';'
+
+    ';'  shift, and go to state 28
+
+
+State 7
+
+   36 func_call: IDENTIFIER . '(' params ')'
+   37          | IDENTIFIER . '(' ')'
+   40 varpart: IDENTIFIER .  [';', '=', '.', '+', '-', '*', '/', '%']
+
+    '('  shift, and go to state 29
+
+    $default  reduce using rule 40 (varpart)
+
+
+State 8
+
+   12 var_decl: TYPE_ID . IDENTIFIER
+   20 func_prefix: TYPE_ID . IDENTIFIER '('
+
+    IDENTIFIER  shift, and go to state 30
+
+
+State 9
+
+   29 stmt: PRINT . '(' expr ')' ';'
+
+    '('  shift, and go to state 31
+
+
+State 10
+
+   28 stmt: WHILE . '(' expr ')' stmt
+
+    '('  shift, and go to state 32
+
+
+State 11
+
+   26 stmt: IF . '(' expr ')' stmts ENDIF ';'
+   27     | IF . '(' expr ')' stmts ELSE stmts ENDIF ';'
+
+    '('  shift, and go to state 33
+
+
+State 12
+
+    4 open: . '{'
+   13 var_decl: STRUCT . IDENTIFIER IDENTIFIER
+   14 struct_decl: STRUCT . open decls close IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 34
+    '{'         shift, and go to state 1
+
+    open  go to state 35
+
+
+State 13
+
+   34 stmt: RETURN . expr ';'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   45 expr: . expr '+' term
+   46     | . expr '-' term
+   47     | . term
+   48 term: . term '*' fact
+   49     | . term '/' fact
+   50     | . term '%' fact
+   51     | . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    expr     go to state 41
+    term     go to state 42
+    fact     go to state 43
+
+
+State 14
+
+   33 stmt: block .
+
+    $default  reduce using rule 33 (stmt)
+
+
+State 15
+
+    2 block: . open decls stmts close
+    2      | open decls . stmts close
+    3      | . open stmts close
+    4 open: . '{'
+    6 decls: decls . decl
+    8 decl: . var_decl ';'
+    9     | . struct_decl ';'
+   10     | . func_decl
+   11     | . error ';'
+   12 var_decl: . TYPE_ID IDENTIFIER
+   13         | . STRUCT IDENTIFIER IDENTIFIER
+   14 struct_decl: . STRUCT open decls close IDENTIFIER
+   15 func_decl: . func_header ';'
+   16          | . func_header '{' decls stmts '}'
+   17          | . func_header '{' stmts '}'
+   18 func_header: . func_prefix paramsspec ')'
+   19            | . func_prefix ')'
+   20 func_prefix: . TYPE_ID IDENTIFIER '('
+   24 stmts: . stmts stmt
+   25      | . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 6
+    IDENTIFIER  shift, and go to state 7
+    TYPE_ID     shift, and go to state 8
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    STRUCT      shift, and go to state 12
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+
+    block        go to state 14
+    open         go to state 4
+    decl         go to state 44
+    var_decl     go to state 17
+    struct_decl  go to state 18
+    func_decl    go to state 19
+    func_header  go to state 20
+    func_prefix  go to state 21
+    stmts        go to state 45
+    stmt         go to state 23
+    func_call    go to state 24
+    varref       go to state 25
+    varpart      go to state 26
+    lval         go to state 27
+
+
+State 16
+
+    7 decls: decl .
+
+    $default  reduce using rule 7 (decls)
+
+
+State 17
+
+    8 decl: var_decl . ';'
+
+    ';'  shift, and go to state 46
+
+
+State 18
+
+    9 decl: struct_decl . ';'
+
+    ';'  shift, and go to state 47
+
+
+State 19
+
+   10 decl: func_decl .
+
+    $default  reduce using rule 10 (decl)
+
+
+State 20
+
+   15 func_decl: func_header . ';'
+   16          | func_header . '{' decls stmts '}'
+   17          | func_header . '{' stmts '}'
+
+    '{'  shift, and go to state 48
+    ';'  shift, and go to state 49
+
+
+State 21
+
+   12 var_decl: . TYPE_ID IDENTIFIER
+   13         | . STRUCT IDENTIFIER IDENTIFIER
+   18 func_header: func_prefix . paramsspec ')'
+   19            | func_prefix . ')'
+   21 paramsspec: . paramsspec ',' paramspec
+   22           | . paramspec
+   23 paramspec: . var_decl
+
+    TYPE_ID  shift, and go to state 50
+    STRUCT   shift, and go to state 51
+    ')'      shift, and go to state 52
+
+    var_decl    go to state 53
+    paramsspec  go to state 54
+    paramspec   go to state 55
+
+
+State 22
+
+    2 block: . open decls stmts close
+    3      | . open stmts close
+    3      | open stmts . close
+    4 open: . '{'
+    5 close: . '}'
+   24 stmts: stmts . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 56
+    IDENTIFIER  shift, and go to state 7
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+    '}'         shift, and go to state 57
+
+    block      go to state 14
+    open       go to state 4
+    close      go to state 58
+    stmt       go to state 59
+    func_call  go to state 24
+    varref     go to state 25
+    varpart    go to state 26
+    lval       go to state 27
+
+
+State 23
+
+   25 stmts: stmt .
+
+    $default  reduce using rule 25 (stmts)
+
+
+State 24
+
+   32 stmt: func_call . ';'
+
+    ';'  shift, and go to state 60
+
+
+State 25
+
+   38 varref: varref . '.' varpart
+   41 lval: varref .  ['=']
+
+    '.'  shift, and go to state 61
+
+    $default  reduce using rule 41 (lval)
+
+
+State 26
+
+   39 varref: varpart .
+
+    $default  reduce using rule 39 (varref)
+
+
+State 27
+
+   30 stmt: lval . '=' expr ';'
+   31     | lval . '=' func_call ';'
+
+    '='  shift, and go to state 62
+
+
+State 28
+
+   11 decl: error ';' .  [error, IDENTIFIER, TYPE_ID, PRINT, WHILE, IF, STRUCT, RETURN, '{']
+   35 stmt: error ';' .  [error, IDENTIFIER, PRINT, WHILE, IF, RETURN, '{', '}']
+
+    error       reduce using rule 11 (decl)
+    error       [reduce using rule 35 (stmt)]
+    IDENTIFIER  reduce using rule 11 (decl)
+    IDENTIFIER  [reduce using rule 35 (stmt)]
+    PRINT       reduce using rule 11 (decl)
+    PRINT       [reduce using rule 35 (stmt)]
+    WHILE       reduce using rule 11 (decl)
+    WHILE       [reduce using rule 35 (stmt)]
+    IF          reduce using rule 11 (decl)
+    IF          [reduce using rule 35 (stmt)]
+    RETURN      reduce using rule 11 (decl)
+    RETURN      [reduce using rule 35 (stmt)]
+    '{'         reduce using rule 11 (decl)
+    '{'         [reduce using rule 35 (stmt)]
+    '}'         reduce using rule 35 (stmt)
+    $default    reduce using rule 11 (decl)
+
+
+State 29
+
+   36 func_call: IDENTIFIER '(' . params ')'
+   37          | IDENTIFIER '(' . ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   42 params: . params ',' param
+   43       | . param
+   44 param: . expr
+   45 expr: . expr '+' term
+   46     | . expr '-' term
+   47     | . term
+   48 term: . term '*' fact
+   49     | . term '/' fact
+   50     | . term '%' fact
+   51     | . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    ')'         shift, and go to state 63
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    params   go to state 64
+    param    go to state 65
+    expr     go to state 66
+    term     go to state 42
+    fact     go to state 43
+
+
+State 30
+
+   12 var_decl: TYPE_ID IDENTIFIER .  [';']
+   20 func_prefix: TYPE_ID IDENTIFIER . '('
+
+    '('  shift, and go to state 67
+
+    $default  reduce using rule 12 (var_decl)
+
+
+State 31
+
+   29 stmt: PRINT '(' . expr ')' ';'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   45 expr: . expr '+' term
+   46     | . expr '-' term
+   47     | . term
+   48 term: . term '*' fact
+   49     | . term '/' fact
+   50     | . term '%' fact
+   51     | . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    expr     go to state 68
+    term     go to state 42
+    fact     go to state 43
+
+
+State 32
+
+   28 stmt: WHILE '(' . expr ')' stmt
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   45 expr: . expr '+' term
+   46     | . expr '-' term
+   47     | . term
+   48 term: . term '*' fact
+   49     | . term '/' fact
+   50     | . term '%' fact
+   51     | . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    expr     go to state 69
+    term     go to state 42
+    fact     go to state 43
+
+
+State 33
+
+   26 stmt: IF '(' . expr ')' stmts ENDIF ';'
+   27     | IF '(' . expr ')' stmts ELSE stmts ENDIF ';'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   45 expr: . expr '+' term
+   46     | . expr '-' term
+   47     | . term
+   48 term: . term '*' fact
+   49     | . term '/' fact
+   50     | . term '%' fact
+   51     | . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    expr     go to state 70
+    term     go to state 42
+    fact     go to state 43
+
+
+State 34
+
+   13 var_decl: STRUCT IDENTIFIER . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 71
+
+
+State 35
+
+    6 decls: . decls decl
+    7      | . decl
+    8 decl: . var_decl ';'
+    9     | . struct_decl ';'
+   10     | . func_decl
+   11     | . error ';'
+   12 var_decl: . TYPE_ID IDENTIFIER
+   13         | . STRUCT IDENTIFIER IDENTIFIER
+   14 struct_decl: . STRUCT open decls close IDENTIFIER
+   14            | STRUCT open . decls close IDENTIFIER
+   15 func_decl: . func_header ';'
+   16          | . func_header '{' decls stmts '}'
+   17          | . func_header '{' stmts '}'
+   18 func_header: . func_prefix paramsspec ')'
+   19            | . func_prefix ')'
+   20 func_prefix: . TYPE_ID IDENTIFIER '('
+
+    error    shift, and go to state 72
+    TYPE_ID  shift, and go to state 8
+    STRUCT   shift, and go to state 12
+
+    decls        go to state 73
+    decl         go to state 16
+    var_decl     go to state 17
+    struct_decl  go to state 18
+    func_decl    go to state 19
+    func_header  go to state 20
+    func_prefix  go to state 21
+
+
+State 36
+
+   40 varpart: IDENTIFIER .
+
+    $default  reduce using rule 40 (varpart)
+
+
+State 37
+
+   53 fact: INT_VAL .
+
+    $default  reduce using rule 53 (fact)
+
+
+State 38
+
+   54 fact: FLOAT_VAL .
+
+    $default  reduce using rule 54 (fact)
+
+
+State 39
+
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   45 expr: . expr '+' term
+   46     | . expr '-' term
+   47     | . term
+   48 term: . term '*' fact
+   49     | . term '/' fact
+   50     | . term '%' fact
+   51     | . fact
+   52 fact: . '(' expr ')'
+   52     | '(' . expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    expr     go to state 74
+    term     go to state 42
+    fact     go to state 43
+
+
+State 40
+
+   38 varref: varref . '.' varpart
+   55 fact: varref .  [';', ')', ',', '+', '-', '*', '/', '%']
+
+    '.'  shift, and go to state 61
+
+    $default  reduce using rule 55 (fact)
+
+
+State 41
+
+   34 stmt: RETURN expr . ';'
+   45 expr: expr . '+' term
+   46     | expr . '-' term
+
+    ';'  shift, and go to state 75
+    '+'  shift, and go to state 76
+    '-'  shift, and go to state 77
+
+
+State 42
+
+   47 expr: term .  [';', ')', ',', '+', '-']
+   48 term: term . '*' fact
+   49     | term . '/' fact
+   50     | term . '%' fact
+
+    '*'  shift, and go to state 78
+    '/'  shift, and go to state 79
+    '%'  shift, and go to state 80
+
+    $default  reduce using rule 47 (expr)
+
+
+State 43
+
+   51 term: fact .
+
+    $default  reduce using rule 51 (term)
+
+
+State 44
+
+    6 decls: decls decl .
+
+    $default  reduce using rule 6 (decls)
+
+
+State 45
+
+    2 block: . open decls stmts close
+    2      | open decls stmts . close
+    3      | . open stmts close
+    4 open: . '{'
+    5 close: . '}'
+   24 stmts: stmts . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 56
+    IDENTIFIER  shift, and go to state 7
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+    '}'         shift, and go to state 57
+
+    block      go to state 14
+    open       go to state 4
+    close      go to state 81
+    stmt       go to state 59
+    func_call  go to state 24
+    varref     go to state 25
+    varpart    go to state 26
+    lval       go to state 27
+
+
+State 46
+
+    8 decl: var_decl ';' .
+
+    $default  reduce using rule 8 (decl)
+
+
+State 47
+
+    9 decl: struct_decl ';' .
+
+    $default  reduce using rule 9 (decl)
+
+
+State 48
+
+    2 block: . open decls stmts close
+    3      | . open stmts close
+    4 open: . '{'
+    6 decls: . decls decl
+    7      | . decl
+    8 decl: . var_decl ';'
+    9     | . struct_decl ';'
+   10     | . func_decl
+   11     | . error ';'
+   12 var_decl: . TYPE_ID IDENTIFIER
+   13         | . STRUCT IDENTIFIER IDENTIFIER
+   14 struct_decl: . STRUCT open decls close IDENTIFIER
+   15 func_decl: . func_header ';'
+   16          | . func_header '{' decls stmts '}'
+   16          | func_header '{' . decls stmts '}'
+   17          | . func_header '{' stmts '}'
+   17          | func_header '{' . stmts '}'
+   18 func_header: . func_prefix paramsspec ')'
+   19            | . func_prefix ')'
+   20 func_prefix: . TYPE_ID IDENTIFIER '('
+   24 stmts: . stmts stmt
+   25      | . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 6
+    IDENTIFIER  shift, and go to state 7
+    TYPE_ID     shift, and go to state 8
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    STRUCT      shift, and go to state 12
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+
+    block        go to state 14
+    open         go to state 4
+    decls        go to state 82
+    decl         go to state 16
+    var_decl     go to state 17
+    struct_decl  go to state 18
+    func_decl    go to state 19
+    func_header  go to state 20
+    func_prefix  go to state 21
+    stmts        go to state 83
+    stmt         go to state 23
+    func_call    go to state 24
+    varref       go to state 25
+    varpart      go to state 26
+    lval         go to state 27
+
+
+State 49
+
+   15 func_decl: func_header ';' .
+
+    $default  reduce using rule 15 (func_decl)
+
+
+State 50
+
+   12 var_decl: TYPE_ID . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 84
+
+
+State 51
+
+   13 var_decl: STRUCT . IDENTIFIER IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 34
+
+
+State 52
+
+   19 func_header: func_prefix ')' .
+
+    $default  reduce using rule 19 (func_header)
+
+
+State 53
+
+   23 paramspec: var_decl .
+
+    $default  reduce using rule 23 (paramspec)
+
+
+State 54
+
+   18 func_header: func_prefix paramsspec . ')'
+   21 paramsspec: paramsspec . ',' paramspec
+
+    ')'  shift, and go to state 85
+    ','  shift, and go to state 86
+
+
+State 55
+
+   22 paramsspec: paramspec .
+
+    $default  reduce using rule 22 (paramsspec)
+
+
+State 56
+
+   35 stmt: error . ';'
+
+    ';'  shift, and go to state 87
+
+
+State 57
+
+    5 close: '}' .
+
+    $default  reduce using rule 5 (close)
+
+
+State 58
+
+    3 block: open stmts close .
+
+    $default  reduce using rule 3 (block)
+
+
+State 59
+
+   24 stmts: stmts stmt .
+
+    $default  reduce using rule 24 (stmts)
+
+
+State 60
+
+   32 stmt: func_call ';' .
+
+    $default  reduce using rule 32 (stmt)
+
+
+State 61
+
+   38 varref: varref '.' . varpart
+   40 varpart: . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 36
+
+    varpart  go to state 88
+
+
+State 62
+
+   30 stmt: lval '=' . expr ';'
+   31     | lval '=' . func_call ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   45 expr: . expr '+' term
+   46     | . expr '-' term
+   47     | . term
+   48 term: . term '*' fact
+   49     | . term '/' fact
+   50     | . term '%' fact
+   51     | . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 7
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    func_call  go to state 89
+    varref     go to state 40
+    varpart    go to state 26
+    expr       go to state 90
+    term       go to state 42
+    fact       go to state 43
+
+
+State 63
+
+   37 func_call: IDENTIFIER '(' ')' .
+
+    $default  reduce using rule 37 (func_call)
+
+
+State 64
+
+   36 func_call: IDENTIFIER '(' params . ')'
+   42 params: params . ',' param
+
+    ')'  shift, and go to state 91
+    ','  shift, and go to state 92
+
+
+State 65
+
+   43 params: param .
+
+    $default  reduce using rule 43 (params)
+
+
+State 66
+
+   44 param: expr .  [')', ',']
+   45 expr: expr . '+' term
+   46     | expr . '-' term
+
+    '+'  shift, and go to state 76
+    '-'  shift, and go to state 77
+
+    $default  reduce using rule 44 (param)
+
+
+State 67
+
+   20 func_prefix: TYPE_ID IDENTIFIER '(' .
+
+    $default  reduce using rule 20 (func_prefix)
+
+
+State 68
+
+   29 stmt: PRINT '(' expr . ')' ';'
+   45 expr: expr . '+' term
+   46     | expr . '-' term
+
+    ')'  shift, and go to state 93
+    '+'  shift, and go to state 76
+    '-'  shift, and go to state 77
+
+
+State 69
+
+   28 stmt: WHILE '(' expr . ')' stmt
+   45 expr: expr . '+' term
+   46     | expr . '-' term
+
+    ')'  shift, and go to state 94
+    '+'  shift, and go to state 76
+    '-'  shift, and go to state 77
+
+
+State 70
+
+   26 stmt: IF '(' expr . ')' stmts ENDIF ';'
+   27     | IF '(' expr . ')' stmts ELSE stmts ENDIF ';'
+   45 expr: expr . '+' term
+   46     | expr . '-' term
+
+    ')'  shift, and go to state 95
+    '+'  shift, and go to state 76
+    '-'  shift, and go to state 77
+
+
+State 71
+
+   13 var_decl: STRUCT IDENTIFIER IDENTIFIER .
+
+    $default  reduce using rule 13 (var_decl)
+
+
+State 72
+
+   11 decl: error . ';'
+
+    ';'  shift, and go to state 96
+
+
+State 73
+
+    5 close: . '}'
+    6 decls: decls . decl
+    8 decl: . var_decl ';'
+    9     | . struct_decl ';'
+   10     | . func_decl
+   11     | . error ';'
+   12 var_decl: . TYPE_ID IDENTIFIER
+   13         | . STRUCT IDENTIFIER IDENTIFIER
+   14 struct_decl: . STRUCT open decls close IDENTIFIER
+   14            | STRUCT open decls . close IDENTIFIER
+   15 func_decl: . func_header ';'
+   16          | . func_header '{' decls stmts '}'
+   17          | . func_header '{' stmts '}'
+   18 func_header: . func_prefix paramsspec ')'
+   19            | . func_prefix ')'
+   20 func_prefix: . TYPE_ID IDENTIFIER '('
+
+    error    shift, and go to state 72
+    TYPE_ID  shift, and go to state 8
+    STRUCT   shift, and go to state 12
+    '}'      shift, and go to state 57
+
+    close        go to state 97
+    decl         go to state 44
+    var_decl     go to state 17
+    struct_decl  go to state 18
+    func_decl    go to state 19
+    func_header  go to state 20
+    func_prefix  go to state 21
+
+
+State 74
+
+   45 expr: expr . '+' term
+   46     | expr . '-' term
+   52 fact: '(' expr . ')'
+
+    ')'  shift, and go to state 98
+    '+'  shift, and go to state 76
+    '-'  shift, and go to state 77
+
+
+State 75
+
+   34 stmt: RETURN expr ';' .
+
+    $default  reduce using rule 34 (stmt)
+
+
+State 76
+
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   45 expr: expr '+' . term
+   48 term: . term '*' fact
+   49     | . term '/' fact
+   50     | . term '%' fact
+   51     | . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    term     go to state 99
+    fact     go to state 43
+
+
+State 77
+
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   46 expr: expr '-' . term
+   48 term: . term '*' fact
+   49     | . term '/' fact
+   50     | . term '%' fact
+   51     | . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    term     go to state 100
+    fact     go to state 43
+
+
+State 78
+
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   48 term: term '*' . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    fact     go to state 101
+
+
+State 79
+
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   49 term: term '/' . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    fact     go to state 102
+
+
+State 80
+
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   50 term: term '%' . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    fact     go to state 103
+
+
+State 81
+
+    2 block: open decls stmts close .
+
+    $default  reduce using rule 2 (block)
+
+
+State 82
+
+    2 block: . open decls stmts close
+    3      | . open stmts close
+    4 open: . '{'
+    6 decls: decls . decl
+    8 decl: . var_decl ';'
+    9     | . struct_decl ';'
+   10     | . func_decl
+   11     | . error ';'
+   12 var_decl: . TYPE_ID IDENTIFIER
+   13         | . STRUCT IDENTIFIER IDENTIFIER
+   14 struct_decl: . STRUCT open decls close IDENTIFIER
+   15 func_decl: . func_header ';'
+   16          | . func_header '{' decls stmts '}'
+   16          | func_header '{' decls . stmts '}'
+   17          | . func_header '{' stmts '}'
+   18 func_header: . func_prefix paramsspec ')'
+   19            | . func_prefix ')'
+   20 func_prefix: . TYPE_ID IDENTIFIER '('
+   24 stmts: . stmts stmt
+   25      | . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 6
+    IDENTIFIER  shift, and go to state 7
+    TYPE_ID     shift, and go to state 8
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    STRUCT      shift, and go to state 12
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+
+    block        go to state 14
+    open         go to state 4
+    decl         go to state 44
+    var_decl     go to state 17
+    struct_decl  go to state 18
+    func_decl    go to state 19
+    func_header  go to state 20
+    func_prefix  go to state 21
+    stmts        go to state 104
+    stmt         go to state 23
+    func_call    go to state 24
+    varref       go to state 25
+    varpart      go to state 26
+    lval         go to state 27
+
+
+State 83
+
+    2 block: . open decls stmts close
+    3      | . open stmts close
+    4 open: . '{'
+   17 func_decl: func_header '{' stmts . '}'
+   24 stmts: stmts . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 56
+    IDENTIFIER  shift, and go to state 7
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+    '}'         shift, and go to state 105
+
+    block      go to state 14
+    open       go to state 4
+    stmt       go to state 59
+    func_call  go to state 24
+    varref     go to state 25
+    varpart    go to state 26
+    lval       go to state 27
+
+
+State 84
+
+   12 var_decl: TYPE_ID IDENTIFIER .
+
+    $default  reduce using rule 12 (var_decl)
+
+
+State 85
+
+   18 func_header: func_prefix paramsspec ')' .
+
+    $default  reduce using rule 18 (func_header)
+
+
+State 86
+
+   12 var_decl: . TYPE_ID IDENTIFIER
+   13         | . STRUCT IDENTIFIER IDENTIFIER
+   21 paramsspec: paramsspec ',' . paramspec
+   23 paramspec: . var_decl
+
+    TYPE_ID  shift, and go to state 50
+    STRUCT   shift, and go to state 51
+
+    var_decl   go to state 53
+    paramspec  go to state 106
+
+
+State 87
+
+   35 stmt: error ';' .
+
+    $default  reduce using rule 35 (stmt)
+
+
+State 88
+
+   38 varref: varref '.' varpart .
+
+    $default  reduce using rule 38 (varref)
+
+
+State 89
+
+   31 stmt: lval '=' func_call . ';'
+
+    ';'  shift, and go to state 107
+
+
+State 90
+
+   30 stmt: lval '=' expr . ';'
+   45 expr: expr . '+' term
+   46     | expr . '-' term
+
+    ';'  shift, and go to state 108
+    '+'  shift, and go to state 76
+    '-'  shift, and go to state 77
+
+
+State 91
+
+   36 func_call: IDENTIFIER '(' params ')' .
+
+    $default  reduce using rule 36 (func_call)
+
+
+State 92
+
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   42 params: params ',' . param
+   44 param: . expr
+   45 expr: . expr '+' term
+   46     | . expr '-' term
+   47     | . term
+   48 term: . term '*' fact
+   49     | . term '/' fact
+   50     | . term '%' fact
+   51     | . fact
+   52 fact: . '(' expr ')'
+   53     | . INT_VAL
+   54     | . FLOAT_VAL
+   55     | . varref
+
+    IDENTIFIER  shift, and go to state 36
+    INT_VAL     shift, and go to state 37
+    FLOAT_VAL   shift, and go to state 38
+    '('         shift, and go to state 39
+
+    varref   go to state 40
+    varpart  go to state 26
+    param    go to state 109
+    expr     go to state 66
+    term     go to state 42
+    fact     go to state 43
+
+
+State 93
+
+   29 stmt: PRINT '(' expr ')' . ';'
+
+    ';'  shift, and go to state 110
+
+
+State 94
+
+    2 block: . open decls stmts close
+    3      | . open stmts close
+    4 open: . '{'
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   28     | WHILE '(' expr ')' . stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 56
+    IDENTIFIER  shift, and go to state 7
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+
+    block      go to state 14
+    open       go to state 4
+    stmt       go to state 111
+    func_call  go to state 24
+    varref     go to state 25
+    varpart    go to state 26
+    lval       go to state 27
+
+
+State 95
+
+    2 block: . open decls stmts close
+    3      | . open stmts close
+    4 open: . '{'
+   24 stmts: . stmts stmt
+   25      | . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   26     | IF '(' expr ')' . stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   27     | IF '(' expr ')' . stmts ELSE stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 56
+    IDENTIFIER  shift, and go to state 7
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+
+    block      go to state 14
+    open       go to state 4
+    stmts      go to state 112
+    stmt       go to state 23
+    func_call  go to state 24
+    varref     go to state 25
+    varpart    go to state 26
+    lval       go to state 27
+
+
+State 96
+
+   11 decl: error ';' .
+
+    $default  reduce using rule 11 (decl)
+
+
+State 97
+
+   14 struct_decl: STRUCT open decls close . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 113
+
+
+State 98
+
+   52 fact: '(' expr ')' .
+
+    $default  reduce using rule 52 (fact)
+
+
+State 99
+
+   45 expr: expr '+' term .  [';', ')', ',', '+', '-']
+   48 term: term . '*' fact
+   49     | term . '/' fact
+   50     | term . '%' fact
+
+    '*'  shift, and go to state 78
+    '/'  shift, and go to state 79
+    '%'  shift, and go to state 80
+
+    $default  reduce using rule 45 (expr)
+
+
+State 100
+
+   46 expr: expr '-' term .  [';', ')', ',', '+', '-']
+   48 term: term . '*' fact
+   49     | term . '/' fact
+   50     | term . '%' fact
+
+    '*'  shift, and go to state 78
+    '/'  shift, and go to state 79
+    '%'  shift, and go to state 80
+
+    $default  reduce using rule 46 (expr)
+
+
+State 101
+
+   48 term: term '*' fact .
+
+    $default  reduce using rule 48 (term)
+
+
+State 102
+
+   49 term: term '/' fact .
+
+    $default  reduce using rule 49 (term)
+
+
+State 103
+
+   50 term: term '%' fact .
+
+    $default  reduce using rule 50 (term)
+
+
+State 104
+
+    2 block: . open decls stmts close
+    3      | . open stmts close
+    4 open: . '{'
+   16 func_decl: func_header '{' decls stmts . '}'
+   24 stmts: stmts . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 56
+    IDENTIFIER  shift, and go to state 7
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+    '}'         shift, and go to state 114
+
+    block      go to state 14
+    open       go to state 4
+    stmt       go to state 59
+    func_call  go to state 24
+    varref     go to state 25
+    varpart    go to state 26
+    lval       go to state 27
+
+
+State 105
+
+   17 func_decl: func_header '{' stmts '}' .
+
+    $default  reduce using rule 17 (func_decl)
+
+
+State 106
+
+   21 paramsspec: paramsspec ',' paramspec .
+
+    $default  reduce using rule 21 (paramsspec)
+
+
+State 107
+
+   31 stmt: lval '=' func_call ';' .
+
+    $default  reduce using rule 31 (stmt)
+
+
+State 108
+
+   30 stmt: lval '=' expr ';' .
+
+    $default  reduce using rule 30 (stmt)
+
+
+State 109
+
+   42 params: params ',' param .
+
+    $default  reduce using rule 42 (params)
+
+
+State 110
+
+   29 stmt: PRINT '(' expr ')' ';' .
+
+    $default  reduce using rule 29 (stmt)
+
+
+State 111
+
+   28 stmt: WHILE '(' expr ')' stmt .
+
+    $default  reduce using rule 28 (stmt)
+
+
+State 112
+
+    2 block: . open decls stmts close
+    3      | . open stmts close
+    4 open: . '{'
+   24 stmts: stmts . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   26     | IF '(' expr ')' stmts . ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   27     | IF '(' expr ')' stmts . ELSE stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 56
+    IDENTIFIER  shift, and go to state 7
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    ELSE        shift, and go to state 115
+    ENDIF       shift, and go to state 116
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+
+    block      go to state 14
+    open       go to state 4
+    stmt       go to state 59
+    func_call  go to state 24
+    varref     go to state 25
+    varpart    go to state 26
+    lval       go to state 27
+
+
+State 113
+
+   14 struct_decl: STRUCT open decls close IDENTIFIER .
+
+    $default  reduce using rule 14 (struct_decl)
+
+
+State 114
+
+   16 func_decl: func_header '{' decls stmts '}' .
+
+    $default  reduce using rule 16 (func_decl)
+
+
+State 115
+
+    2 block: . open decls stmts close
+    3      | . open stmts close
+    4 open: . '{'
+   24 stmts: . stmts stmt
+   25      | . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   27     | IF '(' expr ')' stmts ELSE . stmts ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 56
+    IDENTIFIER  shift, and go to state 7
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+
+    block      go to state 14
+    open       go to state 4
+    stmts      go to state 117
+    stmt       go to state 23
+    func_call  go to state 24
+    varref     go to state 25
+    varpart    go to state 26
+    lval       go to state 27
+
+
+State 116
+
+   26 stmt: IF '(' expr ')' stmts ENDIF . ';'
+
+    ';'  shift, and go to state 118
+
+
+State 117
+
+    2 block: . open decls stmts close
+    3      | . open stmts close
+    4 open: . '{'
+   24 stmts: stmts . stmt
+   26 stmt: . IF '(' expr ')' stmts ENDIF ';'
+   27     | . IF '(' expr ')' stmts ELSE stmts ENDIF ';'
+   27     | IF '(' expr ')' stmts ELSE stmts . ENDIF ';'
+   28     | . WHILE '(' expr ')' stmt
+   29     | . PRINT '(' expr ')' ';'
+   30     | . lval '=' expr ';'
+   31     | . lval '=' func_call ';'
+   32     | . func_call ';'
+   33     | . block
+   34     | . RETURN expr ';'
+   35     | . error ';'
+   36 func_call: . IDENTIFIER '(' params ')'
+   37          | . IDENTIFIER '(' ')'
+   38 varref: . varref '.' varpart
+   39       | . varpart
+   40 varpart: . IDENTIFIER
+   41 lval: . varref
+
+    error       shift, and go to state 56
+    IDENTIFIER  shift, and go to state 7
+    PRINT       shift, and go to state 9
+    WHILE       shift, and go to state 10
+    IF          shift, and go to state 11
+    ENDIF       shift, and go to state 119
+    RETURN      shift, and go to state 13
+    '{'         shift, and go to state 1
+
+    block      go to state 14
+    open       go to state 4
+    stmt       go to state 59
+    func_call  go to state 24
+    varref     go to state 25
+    varpart    go to state 26
+    lval       go to state 27
+
+
+State 118
+
+   26 stmt: IF '(' expr ')' stmts ENDIF ';' .
+
+    $default  reduce using rule 26 (stmt)
+
+
+State 119
+
+   27 stmt: IF '(' expr ')' stmts ELSE stmts ENDIF . ';'
+
+    ';'  shift, and go to state 120
+
+
+State 120
+
+   27 stmt: IF '(' expr ')' stmts ELSE stmts ENDIF ';' .
+
+    $default  reduce using rule 27 (stmt)

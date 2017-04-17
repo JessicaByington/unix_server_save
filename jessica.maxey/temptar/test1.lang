@@ -1,0 +1,7 @@
+{
+    float aa;
+    int   bb;
+    char  cc;
+
+    print(1);
+}
